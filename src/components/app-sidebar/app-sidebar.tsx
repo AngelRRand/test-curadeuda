@@ -14,7 +14,7 @@ import {AppSidebarHeader} from "@/components/app-sidebar/app-sidebarheader";
 
 export function AppSidebar() {
 	return (
-		<Sidebar collapsible="icon">
+		<Sidebar collapsible="icon" className="group">
 			<AppSidebarHeader/>
 			<SidebarContent>
 				<SidebarGroup>

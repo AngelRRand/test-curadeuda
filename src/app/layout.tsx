@@ -3,7 +3,8 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {SidebarProvider} from "@/components/ui/sidebar"
 import {AppSidebar} from "@/components/app-sidebar/app-sidebar"
-import {CustomToggleSidebar} from "@/components/app-sidebar/custom-toggleSidebar";
+import {Header} from "@/components/core/header";
+import {Footer} from "@/components/core/footer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -30,13 +31,15 @@ export default function RootLayout({
 		<body>
 		<SidebarProvider>
 			<AppSidebar/>
-			<main
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
-				<CustomToggleSidebar/>
-
-				{children}
-			</main>
+			<div className={"flex flex-col w-full h-auto "}>
+				<Header/>
+				<main
+					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				>
+					{children}
+				</main>
+				<Footer/>
+			</div>
 		</SidebarProvider>
 		</body>
 		</html>
