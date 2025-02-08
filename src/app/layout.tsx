@@ -1,13 +1,14 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import {M_PLUS_2, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {SidebarProvider} from "@/components/ui/sidebar"
 import {AppSidebar} from "@/components/app-sidebar/app-sidebar"
 import {Header} from "@/components/core/header";
 import {Footer} from "@/components/core/footer";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
+const plus2Sans = M_PLUS_2({
+	variable: "--font-m-plus2",
 	subsets: ["latin"],
 });
 
@@ -31,15 +32,15 @@ export default function RootLayout({
 		<body>
 		<SidebarProvider>
 			<AppSidebar/>
-			<div className={"flex flex-col w-full h-auto "}>
+			<ScrollArea className={"flex flex-col w-full h-dvh"}>
 				<Header/>
 				<main
-					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+					className={`${plus2Sans.variable} ${geistMono.variable} min-h-dvh antialiased`}
 				>
 					{children}
 				</main>
 				<Footer/>
-			</div>
+			</ScrollArea>
 		</SidebarProvider>
 		</body>
 		</html>
