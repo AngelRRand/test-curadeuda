@@ -8,106 +8,83 @@ body {
 
 @layer base {
     :root {
+        /* Colores base principales - se mantienen igual */
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
         --card-foreground: 240 10% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 240 10% 3.9%;
-
-        /* Using the coral/salmon color as primary */
         --primary: 6 100% 72%;
         --primary-foreground: 0 0% 100%;
-
-        /* Lighter variations of the coral */
         --secondary: 6 30% 95%;
         --secondary-foreground: 6 100% 72%;
-
-        /* Subtle variations for muted states */
         --muted: 240 4.8% 95.9%;
         --muted-foreground: 240 3.8% 46.1%;
-
-        /* Accent using the coral theme */
         --accent: 6 30% 95%;
         --accent-foreground: 6 100% 72%;
-
-        /* Keep destructive red but adjust to match theme */
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
-
-        /* Subtle borders and inputs */
         --border: 240 5.9% 90%;
         --input: 240 5.9% 90%;
         --ring: 6 100% 72%;
+        --radius: 0.5rem;
 
-        /* Chart colors based on the coral theme */
+        /* Colores de gráficas */
         --chart-1: 6 100% 72%;
         --chart-2: 6 80% 65%;
         --chart-3: 6 60% 58%;
         --chart-4: 6 40% 51%;
         --chart-5: 6 20% 44%;
 
-        --radius: 0.5rem;
-
-        /* Sidebar using the main colors */
-        --sidebar-background: 0 0% 100%;
-        --sidebar-foreground: 240 10% 3.9%;
+        /* Sidebar con un fondo ligeramente más claro */
+        --sidebar-background: 0 0% 98%; /* Más claro que --background */
+        --sidebar-foreground: 240 5.3% 26.1%;
         --sidebar-primary: 6 100% 72%;
         --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 6 30% 95%;
+        --sidebar-accent: 6 25% 97%; /* Más claro que el accent normal */
         --sidebar-accent-foreground: 6 100% 72%;
-        --sidebar-border: 240 5.9% 90%;
+        --sidebar-border: 6 15% 93%; /* Borde más suave */
         --sidebar-ring: 6 100% 72%;
     }
 
     .dark {
+        /* Colores base principales en modo oscuro */
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;
         --card-foreground: 0 0% 98%;
         --popover: 240 10% 3.9%;
         --popover-foreground: 0 0% 98%;
-
-        /* Adjust primary for dark mode */
         --primary: 6 100% 72%;
         --primary-foreground: 240 10% 3.9%;
-
-        /* Darker variations for secondary */
         --secondary: 240 3.7% 15.9%;
         --secondary-foreground: 6 100% 72%;
-
-        /* Dark mode muted states */
         --muted: 240 3.7% 15.9%;
         --muted-foreground: 240 5% 64.9%;
-
-        /* Dark mode accent */
         --accent: 240 3.7% 15.9%;
         --accent-foreground: 6 100% 72%;
-
-        /* Adjusted destructive for dark mode */
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 0 0% 98%;
-
-        /* Dark mode borders and inputs */
         --border: 240 3.7% 15.9%;
         --input: 240 3.7% 15.9%;
         --ring: 6 100% 72%;
 
-        /* Dark mode chart colors */
+        /* Colores de gráficas en modo oscuro */
         --chart-1: 6 100% 72%;
         --chart-2: 6 85% 65%;
         --chart-3: 6 70% 58%;
         --chart-4: 6 55% 51%;
         --chart-5: 6 40% 44%;
 
-        /* Dark mode sidebar */
-        --sidebar-background: 240 10% 3.9%;
+        /* Sidebar con un fondo ligeramente más claro que el fondo principal en modo oscuro */
+        --sidebar-background: 240 10% 5.9%; /* Más claro que el background oscuro */
         --sidebar-foreground: 0 0% 98%;
         --sidebar-primary: 6 100% 72%;
         --sidebar-primary-foreground: 240 10% 3.9%;
-        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent: 240 5% 17.9%; /* Más claro que el accent oscuro normal */
         --sidebar-accent-foreground: 6 100% 72%;
-        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-border: 240 5% 14.9%; /* Borde más visible en modo oscuro */
         --sidebar-ring: 6 100% 72%;
     }
 }
