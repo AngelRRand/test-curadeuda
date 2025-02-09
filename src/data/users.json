@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "name": "Juan Pérez",
-    "email": "juan@example.com",
+    "name": "Monchi",
+    "email": "ElMonchi@example.com",
     "password": "123456789",
     "photo": "/img/user2_4.png",
     "images": [
@@ -46,5 +46,21 @@
         "date": "2025-02-05"
       }
     ]
+  },
+  {
+    "id": "c6ac0323-cc7f-41df-90d5-7f5b836e999b",
+    "name": "User3",
+    "email": "horacio27rodriguez_cba@hotmail.com",
+    "password": "412312312",
+    "photo": "",
+    "images": []
+  },
+  {
+    "id": "b8e9523e-e03d-4a58-a4bb-954a1f1f08fe",
+    "name": "User4",
+    "email": "werer@asd.v",
+    "password": "423427",
+    "photo": "",
+    "images": []
   }
 ]

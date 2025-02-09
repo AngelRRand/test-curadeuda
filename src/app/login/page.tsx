@@ -41,23 +41,37 @@ export default function Login() {
 		setIsLoading(true)
 
 		try {
-			const loginData = {
-				email: email.toLowerCase(),
-				password: password,
+			const response = await fetch("/api/users/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email: email.toLowerCase(),
+					password: password,
+				}),
+			})
+
+			const data = await response.json()
+
+			if (!response.ok) {
+				throw new Error(data.error || "Login failed")
 			}
 
-			console.log("Sending login data:", loginData)
+			// Login exitoso
+			toast({
+				title: "Success",
+				description: "Login successful!",
+			})
 
-			await new Promise((resolve) => setTimeout(resolve, 1000))
-
-
-		} catch (err) {
+			// Redirigir al usuario a la página principal o dashboard
+			// router.push("/dashboard")
+		} catch (error) {
 			toast({
 				title: "Error",
-				description:
-					"Invalid email or password.",
+				description: error instanceof Error ? error.message : "Invalid email or password.",
 				variant: "destructive",
-			});
+			})
 		} finally {
 			setIsLoading(false)
 		}
@@ -98,19 +112,13 @@ export default function Login() {
 									disabled={isLoading}
 								/>
 							</div>
-							<div className="text-right">
-								<Link href="/forgot-password"
-									  className="text-sm text-muted-foreground hover:text-primary">
-									Forgot your password?
-								</Link>
-							</div>
 						</CardContent>
 						<CardFooter className="flex flex-col gap-4">
-							<Button type="submit" className="w-full bg-red-500 hover:bg-red-600" disabled={isLoading}>
+							<Button type="submit" className="w-full" disabled={isLoading}>
 								{isLoading ? "Loading..." : "Login"}
 							</Button>
 							<p className="text-sm text-center text-muted-foreground">
-								Don&apos;t have an account?{" "}
+								Dont have an account?{" "}
 								<Link href="/register" className="text-primary hover:underline">
 									Register
 								</Link>

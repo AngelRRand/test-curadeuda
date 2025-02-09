@@ -10,6 +10,6 @@ export const isEmailTaken = (email: string) => {
 }
 
 export const isValidPassword = (password: string) => {
-	return password.length >= 5
+	return password.length >= 6
 }
 
