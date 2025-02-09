@@ -1,11 +1,12 @@
 import type {Metadata} from "next";
-import {M_PLUS_2, Geist_Mono} from "next/font/google";
+import {Geist_Mono, M_PLUS_2} from "next/font/google";
 import "./globals.css";
 import {SidebarProvider} from "@/components/ui/sidebar"
 import {AppSidebar} from "@/components/app-sidebar/app-sidebar"
 import {Header} from "@/components/core/header";
 import {Footer} from "@/components/core/footer";
 import {ScrollArea} from "@/components/ui/scroll-area";
+import {Toaster} from "@/components/ui/toaster"
 
 const plus2Sans = M_PLUS_2({
 	variable: "--font-m-plus2",
@@ -32,15 +33,17 @@ export default function RootLayout({
 		<body>
 		<SidebarProvider>
 			<AppSidebar/>
-			<ScrollArea className={"flex flex-col w-full h-dvh"}>
+			<ScrollArea className={"flex flex-col w-full h-dvh "}>
 				<Header/>
 				<main
-					className={`${plus2Sans.variable} ${geistMono.variable} min-h-dvh antialiased`}
+					className={`${plus2Sans.variable} ${geistMono.variable} antialiased`}
 				>
 					{children}
+					<Toaster/>
 				</main>
 				<Footer/>
 			</ScrollArea>
+
 		</SidebarProvider>
 		</body>
 		</html>
