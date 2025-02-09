@@ -5,9 +5,9 @@ import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import Link from "next/link"
 import {useEffect, useState} from "react"
-import data from "@/data/users.json"
 import {useToast} from "@/hooks/use-toast";
 import {isEmailTaken, isValidEmail, isValidPassword} from "@/controller/validation";
+import useStore from "@/store";
 
 export default function Login() {
 	const [step, setStep] = useState(1)
@@ -16,7 +16,9 @@ export default function Login() {
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState(true)
 	const {toast} = useToast();
-
+	const {
+		register
+	} = useStore((state) => state);
 
 	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault()
@@ -61,33 +63,17 @@ export default function Login() {
 			return
 		}
 		try {
-			const response = await fetch("/api/users/register", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					email,
-					password,
-					name: `User${data.length + 1}`,
-				}),
-			});
 
-			const result = await response.json();
-
-			if (!response.ok) {
-				throw new Error(result.error || "Failed to register");
-			}
-
+			await register(email, password)
 			toast({
 				title: "Success",
 				description: "Registration completed successfully.",
 			});
 
-			// Opcional: resetear el formulario o redirigir
 			setEmail("");
 			setPassword("");
 			setStep(1);
+			setError(true);
 		} catch (error) {
 			toast({
 				title: "Error",

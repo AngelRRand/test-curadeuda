@@ -1,25 +1,33 @@
 "use client"
-import {SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar} from "@/components/ui/sidebar"
+import {SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem} from "@/components/ui/sidebar"
 import Link from "next/link";
-import {LogIn, Moon} from "lucide-react";
-import {useEffect, useState} from "react";
+import {LogIn, LogOut, Moon} from "lucide-react";
+import {useEffect} from "react";
+import useStore from "@/store";
+import {useRouter} from "next/navigation";
 
 export function AppSidebarFooter() {
 
-	const [isDark, setIsDark] = useState(false);
-	const {open} = useSidebar();
+	const {
+		user,
+		logout,
+		darkMode,
+		theme,
+		setDarkMode
+	} = useStore((state) => state);
+	const router = useRouter()
 
 	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme");
+		const savedTheme = theme;
 
 		if (savedTheme) {
-			setIsDark(savedTheme === "dark");
+			setDarkMode(savedTheme === "dark");
 			document.documentElement.classList.toggle("dark", savedTheme === "dark");
 		} else {
 			const darkModePreference = window.matchMedia(
 				"(prefers-color-scheme: dark)",
 			);
-			setIsDark(darkModePreference.matches);
+			setDarkMode(darkModePreference.matches);
 			document.documentElement.classList.toggle(
 				"dark",
 				darkModePreference.matches,
@@ -32,9 +40,8 @@ export function AppSidebarFooter() {
 	}, []);
 
 	const toggleDark = (checked: boolean) => {
-		setIsDark(checked);
+		setDarkMode(checked);
 		document.documentElement.classList.toggle("dark", checked);
-		localStorage.setItem("theme", checked ? "dark" : "light");
 	};
 
 
@@ -45,21 +52,38 @@ export function AppSidebarFooter() {
 					<SidebarMenuButton
 						asChild
 					>
-						<div className={"cursor-pointer"} onClick={() => toggleDark(!isDark)}>
+						<div className={"cursor-pointer"} onClick={() => toggleDark(!darkMode)}>
 							<Moon/>
 							Darkmode
 						</div>
 					</SidebarMenuButton>
 				</SidebarMenuItem>
 				<SidebarMenuItem>
-					<SidebarMenuButton
-						asChild
-					>
-						<Link href={`/login`}>
-							<LogIn/>
-							Login
-						</Link>
-					</SidebarMenuButton>
+					{
+						!user ? (
+							<SidebarMenuButton
+								asChild
+							>
+								<Link href={`/login`}>
+									<LogIn/>
+									Login
+								</Link>
+							</SidebarMenuButton>
+						) : (
+							<SidebarMenuButton
+								asChild
+							>
+								<div className={"cursor-pointer"} onClick={() => {
+									logout()
+									router.replace("/")
+								}}>
+									<LogOut/>
+									Log out
+								</div>
+							</SidebarMenuButton>
+						)
+					}
+
 				</SidebarMenuItem>
 			</SidebarMenu>
 		</SidebarFooter>

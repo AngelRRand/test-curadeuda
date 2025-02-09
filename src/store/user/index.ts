@@ -1,0 +1,67 @@
+import {StateCreator} from "zustand";
+import {userState} from "@/store/user/type";
+import data from "@/data/users.json";
+
+const useUserSlice: StateCreator<userState> = (set) => ({
+	// States
+	user: null,
+	login: async (email: string, password: string) => {
+		try {
+			const response = await fetch("/api/users/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email: email.toLowerCase(),
+					password: password,
+				}),
+			})
+
+			const data = await response.json()
+			localStorage.setItem("user", JSON.stringify(data));
+			set({user: data});
+			return data
+		} catch (error) {
+			throw new Error("Error login");
+		}
+	},
+	logout: async () => {
+		try {
+			localStorage.removeItem("user");
+			set({user: null});
+		} catch (error) {
+			throw new Error("Error login");
+		}
+	},
+	register: async (email: string, password: string) => {
+		try {
+			await fetch("/api/users/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+					password,
+					name: `User${data.length + 1}`,
+				}),
+			});
+
+		} catch (error) {
+			throw new Error("Error register");
+		}
+	},
+	getStatesUserLocalStorage: () => {
+		const userData = localStorage.getItem("user");
+
+		if (userData ) {
+			set({
+				user: JSON.parse(userData),
+			});
+		}
+	},
+
+});
+
+export default useUserSlice;

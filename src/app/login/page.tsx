@@ -7,13 +7,20 @@ import Link from "next/link"
 import {useState} from "react"
 import {useToast} from "@/hooks/use-toast";
 import {isValidEmail, isValidPassword} from "@/controller/validation";
+import useStore from "@/store";
+import {useRouter} from "next/navigation";
 
 export default function Login() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
 	const {toast} = useToast();
+	const router = useRouter()
 
+	const {
+		user,
+		login
+	} = useStore((state) => state);
 
 	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault()
@@ -41,22 +48,8 @@ export default function Login() {
 		setIsLoading(true)
 
 		try {
-			const response = await fetch("/api/users/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					email: email.toLowerCase(),
-					password: password,
-				}),
-			})
 
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error || "Login failed")
-			}
+			const rest: { email: string, password: string } = await login(email, password)
 
 			// Login exitoso
 			toast({
@@ -64,8 +57,7 @@ export default function Login() {
 				description: "Login successful!",
 			})
 
-			// Redirigir al usuario a la página principal o dashboard
-			// router.push("/dashboard")
+			router.push(`/user/${rest?.email}`)
 		} catch (error) {
 			toast({
 				title: "Error",
