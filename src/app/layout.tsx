@@ -7,6 +7,7 @@ import {Header} from "@/components/core/header";
 import {Footer} from "@/components/core/footer";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Toaster} from "@/components/ui/toaster"
+import {Provider} from "@/components/core/provider";
 
 const plus2Sans = M_PLUS_2({
 	variable: "--font-m-plus2",
@@ -30,21 +31,22 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-		<body>
-		<SidebarProvider>
-			<AppSidebar/>
-			<ScrollArea className={"flex flex-col w-full h-dvh "}>
-				<Header/>
-				<main
-					className={`${plus2Sans.variable} ${geistMono.variable} antialiased`}
-				>
-					{children}
-					<Toaster/>
-				</main>
-				<Footer/>
-			</ScrollArea>
+		<body className={`${plus2Sans.variable} ${geistMono.variable} antialiased`}>
+		<Provider>
+			<SidebarProvider>
+				<AppSidebar/>
+				<ScrollArea className={"flex flex-col w-full h-dvh "}>
+					<Header/>
+					<main
 
-		</SidebarProvider>
+					>
+						{children}
+						<Toaster/>
+					</main>
+					<Footer/>
+				</ScrollArea>
+			</SidebarProvider>
+		</Provider>
 		</body>
 		</html>
 	);
