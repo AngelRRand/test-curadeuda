@@ -4,7 +4,7 @@ import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import Link from "next/link"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import data from "@/data/users.json"
 import {useToast} from "@/hooks/use-toast";
 import {isEmailTaken, isValidEmail, isValidPassword} from "@/controller/validation";
@@ -14,6 +14,7 @@ export default function Login() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState(true)
 	const {toast} = useToast();
 
 
@@ -59,23 +60,53 @@ export default function Login() {
 			setIsLoading(false)
 			return
 		}
+		try {
+			const response = await fetch("/api/users/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+					password,
+					name: `User${data.length + 1}`,
+				}),
+			});
 
-		setTimeout(() => {
-			const newUser = {
-				id: data.length + 1,
-				name: `User${data.length + 1}`,
-				email: email,
-				images: [],
+			const result = await response.json();
+
+			if (!response.ok) {
+				throw new Error(result.error || "Failed to register");
 			}
 
-			setIsLoading(false);
 			toast({
 				title: "Success",
-				description:
-					"Registration completed successfully.",
+				description: "Registration completed successfully.",
 			});
-		}, 1000)
+
+			// Opcional: resetear el formulario o redirigir
+			setEmail("");
+			setPassword("");
+			setStep(1);
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: error instanceof Error ? error.message : "Failed to register",
+				variant: "destructive",
+			});
+		} finally {
+			setIsLoading(false);
+		}
+
 	}
+
+	useEffect(() => {
+		if (password.length >= 6) {
+			setError(false)
+		} else {
+			setError(true)
+		}
+	}, [password]);
 
 
 	return (
@@ -116,6 +147,12 @@ export default function Login() {
 										required
 										disabled={isLoading}
 									/>
+									{
+										error && (
+											<small className={"text-muted-foreground mt-2"}>Password must be at least 5
+												characters long.</small>
+										)
+									}
 								</div>
 							)}
 						</CardContent>
