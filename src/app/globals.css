@@ -15,9 +15,9 @@ body {
         --card-foreground: 240 10% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 240 10% 3.9%;
-        --primary: 6 100% 72%;
+        --primary: 6 100% 65%; /* Más fuerte */
         --primary-foreground: 0 0% 100%;
-        --secondary: 6 30% 95%;
+        --secondary: 6 40% 90%; /* Más saturado */
         --secondary-foreground: 6 100% 72%;
         --muted: 240 4.8% 95.9%;
         --muted-foreground: 240 3.8% 46.1%;

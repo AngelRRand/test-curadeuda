@@ -3,16 +3,13 @@
     "id": 1,
     "name": "Juan Pérez",
     "email": "juan@example.com",
+    "password": "123456789",
+    "photo": "/img/user2_4.png",
     "images": [
       {
         "url": "/img/user1.png",
-        "description": "Foto en la playa",
+        "description": "Pikachu",
         "date": "2025-02-08"
-      },
-      {
-        "url": "/img/user1_2.png",
-        "description": "Foto de perfil",
-        "date": "2025-02-07"
       }
     ]
   },
@@ -20,35 +17,32 @@
     "id": 2,
     "name": "María López",
     "email": "maria@example.com",
+    "password": "123456789",
+    "photo": "",
     "images": [
       {
         "url": "/img/user2.png",
-        "description": "Foto en el parque",
+        "description": "Squirtle",
         "date": "2025-02-06"
       },
       {
         "url": "/img/user2_2.png",
-        "description": "Retrato",
+        "description": "Charmander dia 1",
         "date": "2025-02-05"
       },
       {
         "url": "/img/user2_3.png",
-        "description": "Foto en el parque",
+        "description": "Charmander dia 2",
         "date": "2025-02-06"
       },
       {
-        "url": "/img/user2_4.png",
-        "description": "Retrato",
-        "date": "2025-02-05"
-      },
-      {
         "url": "/img/user2_5.png",
-        "description": "Foto en el parque",
+        "description": "Sapo",
         "date": "2025-02-06"
       },
       {
         "url": "/img/user2_6.png",
-        "description": "Retrato",
+        "description": "Primo del sapo",
         "date": "2025-02-05"
       }
     ]
