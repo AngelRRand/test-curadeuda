@@ -2,10 +2,13 @@
 import {Button} from "@/components/ui/button"
 import Link from "next/link"
 import React, {useEffect, useState} from "react";
+import useStore from "@/store";
 
 export default function Home() {
 	const [eyePosition, setEyePosition] = useState({x: 0, y: 0})
-
+	const {
+		user
+	} = useStore((state) => state);
 	useEffect(() => {
 		const handleMouseMove = (e) => {
 			const bounds = document.body.getBoundingClientRect()
@@ -29,11 +32,15 @@ export default function Home() {
 			<section className="flex flex-col justify-center items-center gap-4 ">
 				<h1 className="text-5xl font-extrabold">Welcome</h1>
 				<span className="text-sm text-center">Register and become part of our gallery.</span>
-				<Button className=" w-1/2">
-					<Link href="/register" className="w-full">
-						Register
-					</Link>
-				</Button>
+				{
+					!user && (
+						<Button className=" w-1/2">
+							<Link href="/register" className="w-full">
+								Register
+							</Link>
+						</Button>
+					)
+				}
 			</section>
 			<div className="absolute -bottom-20 right-0 ">
 				<svg className="w-80 h-80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
