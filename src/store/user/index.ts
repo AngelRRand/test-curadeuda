@@ -1,6 +1,5 @@
 import {StateCreator} from "zustand";
 import {UserChanges, userState} from "@/store/user/type";
-import data from "@/data/users.json";
 
 const useUserSlice: StateCreator<userState> = (set) => ({
 	// States
@@ -34,9 +33,9 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 			throw new Error("Error login");
 		}
 	},
-	register: async (email: string, password: string) => {
+	register: async (email: string, password: string, datalength: number) => {
 		try {
-			await fetch("/api/users/register", {
+			let response = await fetch("/api/users/register", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -44,10 +43,12 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 				body: JSON.stringify({
 					email,
 					password,
-					name: `User${data.length + 1}`,
+					name: `User${datalength + 1}`,
 				}),
 			});
-
+			const data = await response.json()
+			localStorage.setItem("user", JSON.stringify(data));
+			set({user: data});
 		} catch (error) {
 			throw new Error("Error register");
 		}
@@ -64,8 +65,9 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 
 			let data = await response.json()
 
-			localStorage.setItem("user", JSON.stringify(data.find(u => u.id === id)));
-			set({user: data.find(u => u.id === id)});
+			let user = data.find(u => u.id === id)
+			localStorage.setItem("user", JSON.stringify(user))
+			set({user});
 			return data
 		} catch (error) {
 			throw new Error("Error login");

@@ -1,7 +1,8 @@
 import fs from "fs";
 import {NextResponse} from "next/server";
 import path from "path";
-const filePath = path.resolve(process.cwd(), "src/data/users.json");
+
+const filePath = path.resolve(process.cwd(), "public/data/users.json");
 
 export async function GET(request: Request) {
 	try {

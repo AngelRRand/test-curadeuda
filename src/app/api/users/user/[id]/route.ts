@@ -90,7 +90,7 @@ export async function PUT(
 		users[userIndex] = updatedUser
 
 		// Guardar los cambios en el archivo
-		const usersFilePath = path.join(process.cwd(), 'src/data/users.json')
+		const usersFilePath = path.join(process.cwd(), 'public/data/users.json')
 		fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2))
 
 		const usersResult = readUsersFile()

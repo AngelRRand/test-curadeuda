@@ -2,7 +2,7 @@ export interface userState {
 	user: User | null;
 	login: (email: string, password: string) => void;
 	logout: () => void;
-	register: (email: string, password: string) => void;
+	register: (email: string, password: string, datalength: number) => void;
 	fixedUser: (id: string, changes: UserChanges) => void;
 	getStatesUserLocalStorage: () => void;
 }

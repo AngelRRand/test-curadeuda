@@ -5,8 +5,8 @@ const useGallerySlice: StateCreator<galleryState> = (set) => ({
 	// States
 	data: null,
 
-	setData: (data) => {
-		set({data: data});
+	setData: (newdata) => {
+		set({data: newdata});
 	},
 	getData: async () => {
 		try {
