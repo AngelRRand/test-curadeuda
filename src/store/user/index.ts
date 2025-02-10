@@ -1,5 +1,5 @@
 import {StateCreator} from "zustand";
-import {UserChanges, userState} from "@/store/user/type";
+import {GalleryImageData, UserChanges, UserPhotoData, userState} from "@/store/user/type";
 
 const useUserSlice: StateCreator<userState> = (set) => ({
 	// States
@@ -53,15 +53,25 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 			throw new Error("Error register");
 		}
 	},
-	fixedUser: async (id: string, changes: UserChanges) => {
+	fixedUser: async (id: string, changes: UserChanges | UserPhotoData | GalleryImageData, image: boolean) => {
 		try {
-			const response = await fetch(`/api/users/user/${id}`, {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(changes)
-			})
+
+			let response
+			if (!image) {
+				response = await fetch(`/api/users/${id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(changes)
+				})
+			} else {
+				response = await fetch(`/api/users/upload`, {
+					method: "POST",
+					body: changes,
+				});
+			}
+
 
 			let data = await response.json()
 
@@ -73,6 +83,7 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 			throw new Error("Error login");
 		}
 	},
+
 	getStatesUserLocalStorage: () => {
 		const userData = localStorage.getItem("user");
 
