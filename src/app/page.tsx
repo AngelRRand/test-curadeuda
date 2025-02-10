@@ -31,14 +31,25 @@ export default function Home() {
 			className="flex flex-col gap-10 w-full h-screen items-center justify-center  relative  overflow-hidden">
 			<section className="flex flex-col justify-center items-center gap-4 ">
 				<h1 className="text-5xl font-extrabold">Welcome</h1>
-				<span className="text-sm text-center">Register and become part of our gallery.</span>
 				{
-					!user && (
-						<Button className=" w-1/2">
-							<Link href="/register" className="w-full">
-								Register
+					!user ? (
+						<>
+							<span className="text-sm text-center">
+								Register and become part of our gallery.
+							</span>
+							<Button className=" w-1/2">
+								<Link href="/register" className="w-full">
+									Register
+								</Link>
+							</Button>
+						</>
+
+					) : (
+						<>
+							<Link href="/gallery" className="w-full text-primary font-bold text-center">
+								Visit our gallery
 							</Link>
-						</Button>
+						</>
 					)
 				}
 			</section>

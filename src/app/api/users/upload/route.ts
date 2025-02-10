@@ -5,10 +5,10 @@ import path from 'path'
 
 export async function POST(request: Request) {
 	try {
-		const formData = await request.formData()
-		const imageFile = formData.get('photo') || formData.get('gallery')
-		const data = JSON.parse(formData.get('data') as string)
-		const userId = data.userId
+		const formData = await request.formData();
+		const imageFile = formData.get('photo') || formData.get('gallery');
+		const data = JSON.parse(formData.get('data') as string);
+		const userId = data.userId;
 
 		if (!imageFile || !(imageFile instanceof File)) {
 			return NextResponse.json(
