@@ -1,9 +1,9 @@
 export interface userState {
 	user: User | null;
-	login: (email: string, password: string) => void;
+	login: (email: string, password: string) => Promise<User>;
 	logout: () => void;
 	register: (email: string, password: string, datalength: number) => void;
-	fixedUser: (id: string, changes: UserChanges) => void;
+	fixedUser: (id: string, changes: UserChanges | UserPhotoData | GalleryImageData, image: boolean) => Promise<User[]>;
 	getStatesUserLocalStorage: () => void;
 }
 
@@ -27,4 +27,16 @@ export interface UserChanges {
 	name?: string;
 	email?: string;
 	password?: string;
+}
+
+export interface UserPhotoData {
+	userId: string
+	photo: string
+}
+
+export interface GalleryImageData {
+	userId: string
+	url: string
+	description: string
+	date: string
 }

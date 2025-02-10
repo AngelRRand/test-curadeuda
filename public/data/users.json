@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "Monchi",
     "email": "ElMonchi@example.com",
     "password": "123456789",
@@ -14,7 +14,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "María López",
     "email": "maria@example.com",
     "password": "123456789",
@@ -22,7 +22,7 @@
     "images": [
       {
         "url": "/img/user2.png",
-        "description": "Squirtle",
+        "description": "",
         "date": "2025-02-06"
       },
       {
@@ -37,54 +37,14 @@
       },
       {
         "url": "/img/user2_5.png",
-        "description": "Sapo",
+        "description": "",
         "date": "2025-02-06"
       },
       {
         "url": "/img/user2_6.png",
-        "description": "Primo del sapo",
+        "description": "",
         "date": "2025-02-05"
       }
     ]
-  },
-  {
-    "id": "c6ac0323-cc7f-41df-90d5-7f5b836e999b",
-    "name": "test111222",
-    "email": "horacio27rodriguez_cba@hotmail.com",
-    "password": "412312312",
-    "photo": "",
-    "images": []
-  },
-  {
-    "id": "3c7318a2-df0b-49f4-b6db-0293e2d17323",
-    "name": "User4",
-    "email": "agustinmanuelojeda@gmail.com",
-    "password": "2312351",
-    "photo": "",
-    "images": []
-  },
-  {
-    "id": "0e13a33a-5fb7-4ff1-9677-3e1cde65ed16",
-    "name": "aaaaaa",
-    "email": "agustinsantillan1204@gmail.com",
-    "password": "41234124",
-    "photo": "",
-    "images": []
-  },
-  {
-    "id": "28499ef0-a81b-412e-b38b-b216792a69d1",
-    "name": "User6",
-    "email": "werer@asd.v",
-    "password": "1241243123",
-    "photo": "",
-    "images": []
-  },
-  {
-    "id": "b76eec51-f284-4acf-98e9-6ffbc5688982",
-    "name": "User7",
-    "email": "toma@gmail.com",
-    "password": "4141256",
-    "photo": "",
-    "images": []
   }
 ]
