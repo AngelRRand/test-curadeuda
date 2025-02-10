@@ -18,10 +18,13 @@ const useGallerySlice: StateCreator<galleryState> = (set) => ({
 			})
 
 			const data = await response.json()
+			if (!response.ok) {
+				throw new Error(data.error);
+			}
 			set({data: data});
 			localStorage.setItem("data", JSON.stringify(data));
 		} catch (error) {
-			throw new Error("Error login");
+			throw new Error(error);
 		}
 	},
 	getStatesDataLocalStorage: () => {
