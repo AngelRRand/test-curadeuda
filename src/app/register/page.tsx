@@ -8,6 +8,7 @@ import {useEffect, useState} from "react"
 import {useToast} from "@/hooks/use-toast";
 import {isEmailTaken, isValidEmail, isValidPassword} from "@/controller/validation";
 import useStore from "@/store";
+import {useRouter} from "next/navigation";
 
 export default function Login() {
 	const [step, setStep] = useState(1)
@@ -16,6 +17,7 @@ export default function Login() {
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState(true)
 	const {toast} = useToast();
+	const router = useRouter();
 	const {
 		register
 	} = useStore((state) => state);
@@ -74,6 +76,7 @@ export default function Login() {
 			setPassword("");
 			setStep(1);
 			setError(true);
+			router.replace(`/user/${email}`)
 		} catch (error) {
 			toast({
 				title: "Error",
@@ -96,8 +99,8 @@ export default function Login() {
 
 
 	return (
-		<div className="flex flex-col w-full justify-center items-center">
-			<section className="flex justify-center items-center gap-4 px-2 w-full h-dvh lg:w-1/3">
+		<div className="flex flex-col w-full justify-center items-center mt-10">
+			<section className="flex justify-center items-center gap-4 px-2 w-full lg:w-1/3">
 				<Card className="w-full max-w-md">
 					<CardHeader>
 						<CardTitle className="text-3xl font-extrabold text-center">Register</CardTitle>

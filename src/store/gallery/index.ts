@@ -5,6 +5,9 @@ const useGallerySlice: StateCreator<galleryState> = (set) => ({
 	// States
 	data: null,
 
+	setData: (data) => {
+		set({data: data});
+	},
 	getData: async () => {
 		try {
 			const response = await fetch("/api/users", {
@@ -16,8 +19,17 @@ const useGallerySlice: StateCreator<galleryState> = (set) => ({
 
 			const data = await response.json()
 			set({data: data});
+			localStorage.setItem("data", JSON.stringify(data));
 		} catch (error) {
 			throw new Error("Error login");
+		}
+	},
+	getStatesDataLocalStorage: () => {
+		const data = localStorage.getItem("data");
+		if (data) {
+			set({
+				data: JSON.parse(data),
+			});
 		}
 	},
 

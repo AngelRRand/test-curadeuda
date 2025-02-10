@@ -36,14 +36,15 @@ export default function RootLayout({
 			<SidebarProvider>
 				<AppSidebar/>
 				<ScrollArea className={"flex flex-col w-full h-dvh "}>
-					<Header/>
-					<main
+					<div className={"flex flex-col w-full min-h-dvh"}>
+						<Header/>
+						<main>
+							{children}
+							<Toaster/>
+						</main>
+						<Footer/>
+					</div>
 
-					>
-						{children}
-						<Toaster/>
-					</main>
-					<Footer/>
 				</ScrollArea>
 			</SidebarProvider>
 		</Provider>

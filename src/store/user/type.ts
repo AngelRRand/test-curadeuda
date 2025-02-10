@@ -3,6 +3,7 @@ export interface userState {
 	login: (email: string, password: string) => void;
 	logout: () => void;
 	register: (email: string, password: string) => void;
+	fixedUser: (id: string, changes: UserChanges) => void;
 	getStatesUserLocalStorage: () => void;
 }
 
@@ -19,4 +20,11 @@ export interface User {
 	password: string;
 	photo: string;
 	images: Image[];
+}
+
+export interface UserChanges {
+	id: string;
+	name?: string;
+	email?: string;
+	password?: string;
 }

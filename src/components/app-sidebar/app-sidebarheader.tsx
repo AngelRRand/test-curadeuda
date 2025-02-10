@@ -31,7 +31,7 @@ export function AppSidebarHeader() {
 		<SidebarHeader>
 			<SidebarMenu>
 				<SidebarMenuItem>
-					<Link href={`user/${user.email}`} className="flex items-center">
+					<Link href={`/user/${user.email}`} className="flex items-center">
 						<Avatar className="h-8 w-8">
 							<AvatarImage src={user.photo} alt={user.name}/>
 							<AvatarFallback>{user.name.charAt(0)}</AvatarFallback>

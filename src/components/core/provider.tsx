@@ -8,8 +8,7 @@ export function Provider({children}) {
 	const {
 		getStatesUserLocalStorage,
 		getStatesAppLocalStorage,
-		getData
-
+		getData,
 	} = useStore((state) => state);
 
 

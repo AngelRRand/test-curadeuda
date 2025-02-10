@@ -1,5 +1,5 @@
 import {StateCreator} from "zustand";
-import {userState} from "@/store/user/type";
+import {UserChanges, userState} from "@/store/user/type";
 import data from "@/data/users.json";
 
 const useUserSlice: StateCreator<userState> = (set) => ({
@@ -52,10 +52,29 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 			throw new Error("Error register");
 		}
 	},
+	fixedUser: async (id: string, changes: UserChanges) => {
+		try {
+			const response = await fetch(`/api/users/user/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(changes)
+			})
+
+			let data = await response.json()
+
+			localStorage.setItem("user", JSON.stringify(data.find(u => u.id === id)));
+			set({user: data.find(u => u.id === id)});
+			return data
+		} catch (error) {
+			throw new Error("Error login");
+		}
+	},
 	getStatesUserLocalStorage: () => {
 		const userData = localStorage.getItem("user");
 
-		if (userData ) {
+		if (userData) {
 			set({
 				user: JSON.parse(userData),
 			});

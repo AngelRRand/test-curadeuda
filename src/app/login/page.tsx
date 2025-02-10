@@ -18,7 +18,6 @@ export default function Login() {
 	const router = useRouter()
 
 	const {
-		user,
 		login
 	} = useStore((state) => state);
 
@@ -51,7 +50,6 @@ export default function Login() {
 
 			const rest: { email: string, password: string } = await login(email, password)
 
-			// Login exitoso
 			toast({
 				title: "Success",
 				description: "Login successful!",
@@ -71,8 +69,8 @@ export default function Login() {
 
 
 	return (
-		<div className="flex flex-col w-full justify-center items-center">
-			<section className="flex justify-center items-center gap-4 px-2 w-full h-dvh lg:w-1/3">
+		<div className="flex flex-col w-full justify-center items-center h-full mt-10 ">
+			<section className="flex justify-center items-center gap-4 px-2 w-full lg:w-1/3">
 				<Card className="w-full max-w-md">
 					<CardHeader>
 						<CardTitle className="text-3xl font-extrabold text-center">Login</CardTitle>
