@@ -9,6 +9,7 @@ export default function Home() {
 	const {
 		user
 	} = useStore((state) => state);
+
 	useEffect(() => {
 		const handleMouseMove = (e) => {
 			const bounds = document.body.getBoundingClientRect()
@@ -45,11 +46,10 @@ export default function Home() {
 						</>
 
 					) : (
-						<>
-							<Link href="/gallery" className="w-full text-primary font-bold text-center">
-								Visit our gallery
-							</Link>
-						</>
+						<Link href="/gallery" className="w-full text-primary font-bold text-center">
+							Visit our gallery
+						</Link>
+
 					)
 				}
 			</section>
