@@ -11,7 +11,8 @@ import Image from "next/image"
 import {Button} from "@/components/ui/button"
 import {Eye, EyeOff} from "lucide-react"
 import {isValidPassword} from "@/controller/validation";
-
+import {useToast} from "@/hooks/use-toast";
+import dataJson from "../../../../public/data/users.json"
 
 type UserChanges = {
 	id: string;
@@ -25,37 +26,37 @@ export default function Page() {
 	const params = useParams()
 	const [profileData, setProfileData] = useState(null)
 	const [isEditable, setIsEditable] = useState(false)
-	const [email, setEmail] = useState("")
 	const [name, setName] = useState("")
 	const [password, setPassword] = useState("")
 	const [showPassword, setShowPassword] = useState(false)
-
-
 	const {
 		data,
 		user,
 		fixedUser,
 		setData
 	} = useStore((state) => state)
+	const {toast} = useToast()
+
+	const decodedEmail = decodeURIComponent(params.id)
+
+
+	if (!data) {
+		return
+	}
+
+	const foundUser = dataJson.find(u => u.email === decodedEmail)
+
+	if (!foundUser) {
+		router.push('/not-found')
+		return
+	}
 
 	useEffect(() => {
-		if (!data) {
-			return
-		}
-
-		const decodedEmail = decodeURIComponent(params.id)
-		const foundUser = data.find(u => u.email === decodedEmail)
-		if (!foundUser) {
-			router.push('/not-found')
-			return
-		}
-
 		setProfileData(foundUser)
 		setIsEditable(user?.email === decodedEmail)
-		setEmail(foundUser.email)
 		setName(foundUser.name)
 		setPassword(foundUser.password || "")
-	}, [params.id, user, router])
+	}, [data, params.id, user, router])
 
 	async function handleSave(e: React.FormEvent) {
 		e.preventDefault()
@@ -65,28 +66,44 @@ export default function Page() {
 
 		// Validaciones del lado del cliente
 		if (name !== undefined && name.trim().length < 2) {
-			console.error("Name must be at least 2 characters long")
+			toast({
+				title: "Error",
+				description:
+					"Name must be at least 2 characters long.",
+				variant: "destructive",
+			});
 			return
 		}
 
 		if (password !== undefined && !isValidPassword(password)) {
-			console.error("Password must meet the requirements")
+			toast({
+				title: "Error",
+				description:
+					"Password must meet the requirements.",
+				variant: "destructive",
+			});
 			return
 		}
 
 		if (name !== profileData.name) changes.name = name
 		if (password !== profileData.password) changes.password = password
-		if (email !== profileData.email) changes.email = email
+
 
 		if (Object.keys(changes).length > 1) {
 			try {
 
 				let newData = await fixedUser(profileData.id, changes)
 				await setData(newData)
+				toast({
+					title: "Success",
+					description:
+						"Todo ok.",
+				});
 			} catch (error) {
 				console.error('Error al actualizar:', error)
 			}
 		}
+
 	}
 
 
@@ -167,15 +184,6 @@ export default function Page() {
 						</div>
 
 						<div className="space-y-2">
-							<Label htmlFor="email">Email</Label>
-							<Input
-								id="email"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-
-						<div className="space-y-2">
 							<Label htmlFor="password">Password</Label>
 							<div className="relative flex">
 								<Input
@@ -184,11 +192,15 @@ export default function Page() {
 									placeholder="Password"
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
+									className={"mr-1"}
 								/>
-								<Button>
+
+								<Button onClick={() => setShowPassword(!showPassword)}>
 									{showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
 								</Button>
 							</div>
+							<small className={"text-muted-foreground mt-2"}>Password must be at least 5
+								characters long.</small>
 						</div>
 
 						<Button className="w-full mt-6" type={"submit"}>

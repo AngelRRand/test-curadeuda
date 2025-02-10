@@ -19,7 +19,8 @@ export default function Login() {
 	const {toast} = useToast();
 	const router = useRouter();
 	const {
-		register
+		register,
+		data
 	} = useStore((state) => state);
 
 	async function onSubmit(e: React.FormEvent) {
@@ -66,7 +67,7 @@ export default function Login() {
 		}
 		try {
 
-			await register(email, password)
+			await register(email, password, data?.length || 1)
 			toast({
 				title: "Success",
 				description: "Registration completed successfully.",

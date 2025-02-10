@@ -5,27 +5,22 @@ import fs from "fs";
 import path from "path";
 import {readUsersFile} from "@/controller/readFile";
 
-const filePath = path.resolve(process.cwd(), "src/data/users.json")
+const filePath = path.resolve(process.cwd(), "public/data/users.json")
 
 export async function POST(request: Request) {
 	try {
 		const body = await request.json()
 		const {email, password, name} = body
-
 		// Validaciones básicas
 		if (!email || !password) {
 			return NextResponse.json({error: "Email and password are required"}, {status: 400})
 		}
-
 		if (!isValidEmail(email)) {
 			return NextResponse.json({error: "Invalid email format"}, {status: 400})
 		}
-
 		if (password.length < 6) {
 			return NextResponse.json({error: "Password must be at least 6 characters long"}, {status: 400})
 		}
-
-
 		// Crear nuevo usuario con valores por defecto
 		const newUser = {
 			id: crypto.randomUUID(),
@@ -35,15 +30,11 @@ export async function POST(request: Request) {
 			photo: "",
 			images: [],
 		}
-
 		// Añadir el nuevo usuario
 		const users = readUsersFile()
-
 		users.push(newUser)
-
 		// Guardar los datos actualizados
 		fs.writeFileSync(filePath, JSON.stringify(users, null, 2))
-
 		// Retornar el usuario creado (sin la contraseña)
 		const {password: _, ...userWithoutPassword} = newUser
 		return NextResponse.json(userWithoutPassword, {status: 201})

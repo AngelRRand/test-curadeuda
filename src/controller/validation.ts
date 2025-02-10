@@ -1,4 +1,4 @@
-import data from "@/data/users.json";
+import data from "../../public/data/users.json";
 
 export const isValidEmail = (email: string) => {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
