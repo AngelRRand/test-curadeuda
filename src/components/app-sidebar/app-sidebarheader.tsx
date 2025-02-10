@@ -41,9 +41,7 @@ export function AppSidebarHeader() {
                             <span className="text-sm">
                                 {user.name}
                             </span>
-							<small className="text-xs">
-								{user.email}
-							</small>
+
 						</div>
 					</Link>
 				</SidebarMenuItem>

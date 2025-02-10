@@ -17,21 +17,22 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 				}),
 			})
 
+
 			const data = await response.json()
+			if (!response.ok) {
+				throw new Error(data.error);
+			}
 			localStorage.setItem("user", JSON.stringify(data));
 			set({user: data});
 			return data
 		} catch (error) {
-			throw new Error("Error login");
+			throw new Error(error);
 		}
 	},
 	logout: async () => {
-		try {
-			localStorage.removeItem("user");
-			set({user: null});
-		} catch (error) {
-			throw new Error("Error login");
-		}
+		localStorage.removeItem("user");
+		set({user: null});
+
 	},
 	register: async (email: string, password: string, datalength: number) => {
 		try {
@@ -47,10 +48,13 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 				}),
 			});
 			const data = await response.json()
+			if (!response.ok) {
+				throw new Error(data.error);
+			}
 			localStorage.setItem("user", JSON.stringify(data));
 			set({user: data});
 		} catch (error) {
-			throw new Error("Error register");
+			throw new Error(error);
 		}
 	},
 	fixedUser: async (id: string, changes: UserChanges | UserPhotoData | GalleryImageData, image: boolean) => {
@@ -72,15 +76,16 @@ const useUserSlice: StateCreator<userState> = (set) => ({
 				});
 			}
 
-
 			let data = await response.json()
-
+			if (!response.ok) {
+				throw new Error(data.error);
+			}
 			let user = data.find(u => u.id === id)
 			localStorage.setItem("user", JSON.stringify(user))
 			set({user});
 			return data
 		} catch (error) {
-			throw new Error("Error login");
+			throw new Error(error);
 		}
 	},
 

@@ -14,6 +14,7 @@ import {useToast} from "@/hooks/use-toast";
 import dataJson from "../../../../public/data/users.json"
 import {UploadImage} from "@/components/core/upload-image";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
+import {UserImages} from "@/components/core/user-images";
 
 type UserChanges = {
 	id: string;
@@ -135,46 +136,29 @@ export default function Page() {
 
 	if (!isEditable) {
 		return (
-			<div className="flex flex-col gap-10 w-full  items-center my-10">
-				<div className="w-full space-y-6 p-4  ">
-					<div className="flex flex-col w-full justify-center items-center gap-4">
-						<Avatar className="h-12 w-12">
-							<AvatarImage src={profileData.photo}/>
-							<AvatarFallback>{profileData.name[0]}</AvatarFallback>
-						</Avatar>
-						<h2 className="text-xl font-semibold">{profileData.name}</h2>
-					</div>
-
-					<div className="space-y-4 w-full">
-						<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-							{profileData.images?.map((image, index) => (
-								<div
-									key={index}
-									className="relative aspect-square rounded-lg overflow-hidden bg-muted group"
-								>
-									<img
-										src={image.url}
-										alt={image.description || "Gallery image"}
-										className="w-full h-full object-cover"
-										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-									/>
-									<div
-										className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-									>
-										<div className="absolute bottom-0 left-0 right-0 p-4">
-											<p className="text-white text-sm font-medium truncate">
-												{image.description}
-											</p>
-											<p className="text-gray-300 text-xs">
-												{new Date(image.date).toLocaleDateString()}
-											</p>
-										</div>
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
+			<div className="flex flex-col w-full  my-10">
+				<div className="flex flex-col w-full justify-center items-center gap-4">
+					<Avatar className="h-12 w-12">
+						<AvatarImage src={profileData.photo}/>
+						<AvatarFallback>{profileData.name[0]}</AvatarFallback>
+					</Avatar>
+					<h2 className="text-xl font-semibold">{profileData.name}</h2>
 				</div>
+
+
+				<div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 p-4 mt-10">
+					{profileData.images?.map((image, index) => (
+						<div className="break-inside-avoid " key={index}>
+							<UserImages
+								user={null}
+								image={image}
+								index={index}
+							/>
+						</div>
+
+					))}
+				</div>
+
 			</div>
 		)
 	}
@@ -242,33 +226,11 @@ export default function Page() {
 						</UploadImage>
 
 					</div>
-					<div className="  mt-4 flex flex-col">
-						<Label className="mb-4 block">Your Gallery :</Label>
-						<div className={"gap-4 grid grid-cols-2 md:grid-cols-3"}>
+					<div className="mt-4 flex flex-col">
+						<Label className=" block">Your Gallery :</Label>
+						<div className={"columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 p-4  "}>
 							{profileData.images?.map((image, index) => (
-								<div
-									key={index}
-									className="relative aspect-square rounded-lg overflow-hidden bg-muted group"
-								>
-									<img
-										src={image.url}
-										alt={image.description || "Gallery image"}
-										className="w-full h-full object-cover"
-										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-									/>
-									<div
-										className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-									>
-										<div className="absolute bottom-0 left-0 right-0 p-4">
-											<p className="text-white text-sm font-medium truncate">
-												{image.description}
-											</p>
-											<p className="text-gray-300 text-xs">
-												{new Date(image.date).toLocaleDateString()}
-											</p>
-										</div>
-									</div>
-								</div>
+								<UserImages key={index} user={null} image={image} index={index}/>
 							))}
 						</div>
 					</div>

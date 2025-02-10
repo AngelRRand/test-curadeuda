@@ -51,7 +51,7 @@ export default function Login() {
 			const rest: { email: string, password: string } = await login(email, password)
 
 			toast({
-				title: "Success",
+				title: "Welcome",
 				description: "Login successful!",
 			})
 
