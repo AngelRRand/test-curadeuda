@@ -7,10 +7,10 @@ export function Header() {
 
 	return (
 		<header className={"flex  w-full h-auto p-6 lg:p-4"}>
-			<div className={"fixed"}>
+			<div className={"fixed z-30"}>
 				<CustomToggleSidebar/>
 			</div>
-			<div className={"fixed right-2"}>
+			<div className={"fixed z-30 right-2"}>
 				<Logo/>
 			</div>
 

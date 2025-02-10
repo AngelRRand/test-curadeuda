@@ -9,7 +9,7 @@ export function CustomToggleSidebar() {
 	return (
 		<Button
 			onClick={toggleSidebar}
-			className="w-10 h-10"
+			className="w-10 h-10 "
 		>
 			<PanelLeft className="text-white"/>
 		</Button>

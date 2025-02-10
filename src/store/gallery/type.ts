@@ -2,7 +2,9 @@ import {Image} from "@/store/user/type";
 
 export interface galleryState {
 	data: User[] | null;
+	setData: () => void;
 	getData: () => void;
+	getStatesDataLocalStorage: () => void;
 }
 
 

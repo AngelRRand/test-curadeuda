@@ -14,8 +14,8 @@ export default function Home() {
 	} = useStore((state) => state);
 
 	return (
-		<div className="flex flex-col gap-10 w-full items-center min-h-dvh justify-center my-2">
-			<section className="flex flex-col justify-center items-center gap-4 mt-4 w-2/3 lg:w-1/3">
+		<div className="flex flex-col gap-10 w-full items-center justify-center my-10">
+			<section className="flex flex-col justify-center items-center gap-4 w-2/3 lg:w-1/3">
 				<h1 className="text-3xl font-extrabold">Welcome</h1>
 				<span className="text-sm text-center">Register and become part of our gallery.</span>
 				<Button className=" w-1/2">
@@ -73,14 +73,17 @@ export default function Home() {
 									<HoverCardContent align="start" className="w-60">
 										<div className="flex flex-col">
 											<div className="flex space-x-4">
-												<Avatar>
-													<AvatarImage src={user.photo} className="object-cover"/>
-													<AvatarFallback>{user.name[0]}</AvatarFallback>
-												</Avatar>
-												<div className="space-y-1">
-													<h4 className="text-sm font-semibold">{user.name}</h4>
-													<p className="text-sm text-muted-foreground">{user.email}</p>
-												</div>
+												<Link href={`user/${user.email}`} className={"flex gap-2"}>
+													<Avatar>
+														<AvatarImage src={user.photo} className="object-cover"/>
+														<AvatarFallback>{user.name[0]}</AvatarFallback>
+													</Avatar>
+
+													<div className="space-y-1">
+														<h4 className="text-sm font-semibold">{user.name}</h4>
+														<p className="text-sm text-muted-foreground">{user.email}</p>
+													</div>
+												</Link>
 											</div>
 											<div className="flex flex-col gap-1 mt-2">
 												<p className="text-sm">{image.description}</p>
